@@ -1802,3 +1802,627 @@ ProductTest: test_product_price_must_be_positive
   [1m[36mProduct Exists? (2.0ms)[0m  [1m[34mSELECT 1 AS one FROM `products` WHERE `products`.`title` = BINARY 'My Book Title' LIMIT 1[0m
   [1m[36mProduct Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM `products` WHERE `products`.`title` = BINARY 'My Book Title' LIMIT 1[0m
   [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP DATABASE IF EXISTS `depot_test`[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `depot_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `carts` CASCADE[0m
+  [1m[35m (495.3ms)[0m  [1m[35mCREATE TABLE `carts` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS `line_items` CASCADE[0m
+  [1m[35m (584.8ms)[0m  [1m[35mCREATE TABLE `line_items` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `product_id` bigint NOT NULL, `cart_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `quantity` int DEFAULT 1, `order_id` bigint,  INDEX `index_line_items_on_cart_id`  (`cart_id`),  INDEX `index_line_items_on_order_id`  (`order_id`),  INDEX `index_line_items_on_product_id`  (`product_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS `orders` CASCADE[0m
+  [1m[35m (389.9ms)[0m  [1m[35mCREATE TABLE `orders` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `address` text, `email` varchar(255), `pay_type` int, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS `products` CASCADE[0m
+  [1m[35m (376.3ms)[0m  [1m[35mCREATE TABLE `products` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `description` text, `image_url` varchar(255), `price` decimal(8,2), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (1191.8ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_af645e8e5f`
+FOREIGN KEY (`cart_id`)
+  REFERENCES `carts` (`id`)
+[0m
+  [1m[35m (1013.8ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_2dc2e5c22c`
+FOREIGN KEY (`order_id`)
+  REFERENCES `orders` (`id`)
+[0m
+  [1m[35m (1115.6ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_11e15d5c6b`
+FOREIGN KEY (`product_id`)
+  REFERENCES `products` (`id`)
+[0m
+  [1m[35m (354.0ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (43.8ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20201229060931)[0m
+  [1m[35m (43.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20201223064838),
+(20201224091455),
+(20201224094710),
+(20201228050122),
+(20201228051853),
+(20201229044643);
+
+[0m
+  [1m[35m (443.9ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2020-12-30 10:02:29.020516', '2020-12-30 10:02:29.020516')[0m
+  [1m[35m (53.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '7ac5438ffbe5d7c79bfd8382885ce069039a93c1', '2020-12-30 10:02:29.085476', '2020-12-30 10:02:29.085476')[0m
+  [1m[35m (44.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `depot_test-0` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.5ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE DATABASE `depot_test-1` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS `carts` CASCADE[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `carts` CASCADE[0m
+  [1m[35m (449.6ms)[0m  [1m[35mCREATE TABLE `carts` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS `line_items` CASCADE[0m
+  [1m[35m (845.1ms)[0m  [1m[35mCREATE TABLE `carts` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.5ms)[0m  [1m[35mDROP TABLE IF EXISTS `line_items` CASCADE[0m
+  [1m[35m (1343.4ms)[0m  [1m[35mCREATE TABLE `line_items` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `product_id` bigint NOT NULL, `cart_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `quantity` int DEFAULT 1, `order_id` bigint,  INDEX `index_line_items_on_cart_id`  (`cart_id`),  INDEX `index_line_items_on_order_id`  (`order_id`),  INDEX `index_line_items_on_product_id`  (`product_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (951.1ms)[0m  [1m[35mCREATE TABLE `line_items` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `product_id` bigint NOT NULL, `cart_id` bigint NOT NULL, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL, `quantity` int DEFAULT 1, `order_id` bigint,  INDEX `index_line_items_on_cart_id`  (`cart_id`),  INDEX `index_line_items_on_order_id`  (`order_id`),  INDEX `index_line_items_on_product_id`  (`product_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.4ms)[0m  [1m[35mDROP TABLE IF EXISTS `orders` CASCADE[0m
+  [1m[35m (1.1ms)[0m  [1m[35mDROP TABLE IF EXISTS `orders` CASCADE[0m
+  [1m[35m (710.6ms)[0m  [1m[35mCREATE TABLE `orders` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `address` text, `email` varchar(255), `pay_type` int, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (712.9ms)[0m  [1m[35mCREATE TABLE `orders` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `name` varchar(255), `address` text, `email` varchar(255), `pay_type` int, `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS `products` CASCADE[0m
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS `products` CASCADE[0m
+  [1m[35m (710.1ms)[0m  [1m[35mCREATE TABLE `products` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `description` text, `image_url` varchar(255), `price` decimal(8,2), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (819.7ms)[0m  [1m[35mCREATE TABLE `products` (`id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, `title` varchar(255), `description` text, `image_url` varchar(255), `price` decimal(8,2), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4[0m
+  [1m[35m (2557.7ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_af645e8e5f`
+FOREIGN KEY (`cart_id`)
+  REFERENCES `carts` (`id`)
+[0m
+  [1m[35m (3030.8ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_af645e8e5f`
+FOREIGN KEY (`cart_id`)
+  REFERENCES `carts` (`id`)
+[0m
+  [1m[35m (2358.6ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_2dc2e5c22c`
+FOREIGN KEY (`order_id`)
+  REFERENCES `orders` (`id`)
+[0m
+  [1m[35m (2219.3ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_2dc2e5c22c`
+FOREIGN KEY (`order_id`)
+  REFERENCES `orders` (`id`)
+[0m
+  [1m[35m (2306.9ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_11e15d5c6b`
+FOREIGN KEY (`product_id`)
+  REFERENCES `products` (`id`)
+[0m
+  [1m[35m (2831.1ms)[0m  [1m[35mALTER TABLE `line_items` ADD CONSTRAINT `fk_rails_11e15d5c6b`
+FOREIGN KEY (`product_id`)
+  REFERENCES `products` (`id`)
+[0m
+  [1m[35m (978.8ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (765.9ms)[0m  [1m[35mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+  [1m[35m (48.9ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20201229060931)[0m
+  [1m[35m (90.7ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES (20201229060931)[0m
+  [1m[35m (88.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20201223064838),
+(20201224091455),
+(20201224094710),
+(20201228050122),
+(20201228051853),
+(20201229044643);
+
+[0m
+  [1m[35m (105.3ms)[0m  [1m[32mINSERT INTO `schema_migrations` (version) VALUES
+(20201223064838),
+(20201224091455),
+(20201224094710),
+(20201228050122),
+(20201228051853),
+(20201229044643);
+
+[0m
+  [1m[35m (405.6ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[35m (879.2ms)[0m  [1m[35mCREATE TABLE `ar_internal_metadata` (`key` varchar(255) NOT NULL PRIMARY KEY, `value` varchar(255), `created_at` datetime(6) NOT NULL, `updated_at` datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2020-12-30 10:02:42.327267', '2020-12-30 10:02:42.327267')[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.3ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('environment', 'test', '2020-12-30 10:02:42.328378', '2020-12-30 10:02:42.328378')[0m
+  [1m[35m (53.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.7ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.1ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '7ac5438ffbe5d7c79bfd8382885ce069039a93c1', '2020-12-30 10:02:42.392269', '2020-12-30 10:02:42.392269')[0m
+  [1m[35m (96.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'environment' LIMIT 1[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT `ar_internal_metadata`.* FROM `ar_internal_metadata` WHERE `ar_internal_metadata`.`key` = 'schema_sha1' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.7ms)[0m  [1m[32mINSERT INTO `ar_internal_metadata` (`key`, `value`, `created_at`, `updated_at`) VALUES ('schema_sha1', '7ac5438ffbe5d7c79bfd8382885ce069039a93c1', '2020-12-30 10:02:42.433784', '2020-12-30 10:02:42.433784')[0m
+  [1m[35m (77.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (111.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET NAMES utf8mb4,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, ',STRICT_ALL_TABLES'), ',NO_AUTO_VALUE_ON_ZERO'),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (1.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:42.629043', '2020-12-30 10:02:42.629043'), (298486374, '2020-12-30 10:02:42.629043', '2020-12-30 10:02:42.629043');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:42.632911', '2020-12-30 10:02:42.632911'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:42.632911', '2020-12-30 10:02:42.632911');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.635900', '2020-12-30 10:02:42.635900'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.635900', '2020-12-30 10:02:42.635900'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:42.635900', '2020-12-30 10:02:42.635900');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:42.638392', '2020-12-30 10:02:42.638392', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:42.638392', '2020-12-30 10:02:42.638392', DEFAULT, 980190962)[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.7ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:42.631884', '2020-12-30 10:02:42.631884'), (298486374, '2020-12-30 10:02:42.631884', '2020-12-30 10:02:42.631884');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:42.635710', '2020-12-30 10:02:42.635710'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:42.635710', '2020-12-30 10:02:42.635710');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.638459', '2020-12-30 10:02:42.638459'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.638459', '2020-12-30 10:02:42.638459'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:42.638459', '2020-12-30 10:02:42.638459');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:42.641175', '2020-12-30 10:02:42.641175', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:42.641175', '2020-12-30 10:02:42.641175', DEFAULT, 980190962)[0m
+  [1m[35m (55.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (55.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:42.897352', '2020-12-30 10:02:42.897352'), (298486374, '2020-12-30 10:02:42.897352', '2020-12-30 10:02:42.897352');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:42.897461', '2020-12-30 10:02:42.897461'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:42.897461', '2020-12-30 10:02:42.897461');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.897566', '2020-12-30 10:02:42.897566'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.897566', '2020-12-30 10:02:42.897566'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:42.897566', '2020-12-30 10:02:42.897566');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:42.897675', '2020-12-30 10:02:42.897675', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:42.897675', '2020-12-30 10:02:42.897675', DEFAULT, 980190962)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:42.898079', '2020-12-30 10:02:42.898079'), (298486374, '2020-12-30 10:02:42.898079', '2020-12-30 10:02:42.898079');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:42.898182', '2020-12-30 10:02:42.898182'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:42.898182', '2020-12-30 10:02:42.898182');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.898286', '2020-12-30 10:02:42.898286'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:42.898286', '2020-12-30 10:02:42.898286'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:42.898286', '2020-12-30 10:02:42.898286');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:42.898395', '2020-12-30 10:02:42.898395', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:42.898395', '2020-12-30 10:02:42.898395', DEFAULT, 980190962)[0m
+  [1m[35m (360.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.276051', '2020-12-30 10:02:43.276051'), (298486374, '2020-12-30 10:02:43.276051', '2020-12-30 10:02:43.276051');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.276288', '2020-12-30 10:02:43.276288'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.276288', '2020-12-30 10:02:43.276288');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.276509', '2020-12-30 10:02:43.276509'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.276509', '2020-12-30 10:02:43.276509'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.276509', '2020-12-30 10:02:43.276509');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.276692', '2020-12-30 10:02:43.276692', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.276692', '2020-12-30 10:02:43.276692', DEFAULT, 980190962)[0m
+  [1m[35m (89.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (1.0ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.321441', '2020-12-30 10:02:43.321441'), (298486374, '2020-12-30 10:02:43.321441', '2020-12-30 10:02:43.321441');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.321548', '2020-12-30 10:02:43.321548'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.321548', '2020-12-30 10:02:43.321548');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.321621', '2020-12-30 10:02:43.321621'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.321621', '2020-12-30 10:02:43.321621'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.321621', '2020-12-30 10:02:43.321621');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.321713', '2020-12-30 10:02:43.321713', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.321713', '2020-12-30 10:02:43.321713', DEFAULT, 980190962)[0m
+  [1m[35m (169.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.9ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.466876', '2020-12-30 10:02:43.466876'), (298486374, '2020-12-30 10:02:43.466876', '2020-12-30 10:02:43.466876');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.467027', '2020-12-30 10:02:43.467027'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.467027', '2020-12-30 10:02:43.467027');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.467156', '2020-12-30 10:02:43.467156'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.467156', '2020-12-30 10:02:43.467156'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.467156', '2020-12-30 10:02:43.467156');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.467341', '2020-12-30 10:02:43.467341', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.467341', '2020-12-30 10:02:43.467341', DEFAULT, 980190962)[0m
+  [1m[35m (169.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.509345', '2020-12-30 10:02:43.509345'), (298486374, '2020-12-30 10:02:43.509345', '2020-12-30 10:02:43.509345');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.509496', '2020-12-30 10:02:43.509496'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.509496', '2020-12-30 10:02:43.509496');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.509626', '2020-12-30 10:02:43.509626'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.509626', '2020-12-30 10:02:43.509626'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.509626', '2020-12-30 10:02:43.509626');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.509811', '2020-12-30 10:02:43.509811', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.509811', '2020-12-30 10:02:43.509811', DEFAULT, 980190962)[0m
+  [1m[35m (68.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.553790', '2020-12-30 10:02:43.553790'), (298486374, '2020-12-30 10:02:43.553790', '2020-12-30 10:02:43.553790');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.553948', '2020-12-30 10:02:43.553948'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.553948', '2020-12-30 10:02:43.553948');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.554106', '2020-12-30 10:02:43.554106'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.554106', '2020-12-30 10:02:43.554106'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.554106', '2020-12-30 10:02:43.554106');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.554281', '2020-12-30 10:02:43.554281', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.554281', '2020-12-30 10:02:43.554281', DEFAULT, 980190962)[0m
+  [1m[35m (70.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.597343', '2020-12-30 10:02:43.597343'), (298486374, '2020-12-30 10:02:43.597343', '2020-12-30 10:02:43.597343');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.597446', '2020-12-30 10:02:43.597446'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.597446', '2020-12-30 10:02:43.597446');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.597536', '2020-12-30 10:02:43.597536'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.597536', '2020-12-30 10:02:43.597536'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.597536', '2020-12-30 10:02:43.597536');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.597641', '2020-12-30 10:02:43.597641', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.597641', '2020-12-30 10:02:43.597641', DEFAULT, 980190962)[0m
+  [1m[35m (193.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.764984', '2020-12-30 10:02:43.764984'), (298486374, '2020-12-30 10:02:43.764984', '2020-12-30 10:02:43.764984');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.765085', '2020-12-30 10:02:43.765085'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.765085', '2020-12-30 10:02:43.765085');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.765187', '2020-12-30 10:02:43.765187'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.765187', '2020-12-30 10:02:43.765187'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.765187', '2020-12-30 10:02:43.765187');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.765329', '2020-12-30 10:02:43.765329', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.765329', '2020-12-30 10:02:43.765329', DEFAULT, 980190962)[0m
+  [1m[35m (206.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.821645', '2020-12-30 10:02:43.821645'), (298486374, '2020-12-30 10:02:43.821645', '2020-12-30 10:02:43.821645');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.821747', '2020-12-30 10:02:43.821747'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.821747', '2020-12-30 10:02:43.821747');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.821841', '2020-12-30 10:02:43.821841'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.821841', '2020-12-30 10:02:43.821841'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.821841', '2020-12-30 10:02:43.821841');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.821943', '2020-12-30 10:02:43.821943', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.821943', '2020-12-30 10:02:43.821943', DEFAULT, 980190962)[0m
+  [1m[35m (92.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.876976', '2020-12-30 10:02:43.876976'), (298486374, '2020-12-30 10:02:43.876976', '2020-12-30 10:02:43.876976');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.877186', '2020-12-30 10:02:43.877186'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.877186', '2020-12-30 10:02:43.877186');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.877336', '2020-12-30 10:02:43.877336'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.877336', '2020-12-30 10:02:43.877336'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.877336', '2020-12-30 10:02:43.877336');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.877500', '2020-12-30 10:02:43.877500', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.877500', '2020-12-30 10:02:43.877500', DEFAULT, 980190962)[0m
+  [1m[35m (93.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.6ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (1.1ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:43.934153', '2020-12-30 10:02:43.934153'), (298486374, '2020-12-30 10:02:43.934153', '2020-12-30 10:02:43.934153');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:43.934309', '2020-12-30 10:02:43.934309'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:43.934309', '2020-12-30 10:02:43.934309');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.934410', '2020-12-30 10:02:43.934410'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:43.934410', '2020-12-30 10:02:43.934410'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:43.934410', '2020-12-30 10:02:43.934410');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:43.934524', '2020-12-30 10:02:43.934524', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:43.934524', '2020-12-30 10:02:43.934524', DEFAULT, 980190962)[0m
+  [1m[35m (191.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.8ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.089301', '2020-12-30 10:02:44.089301'), (298486374, '2020-12-30 10:02:44.089301', '2020-12-30 10:02:44.089301');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.089619', '2020-12-30 10:02:44.089619'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.089619', '2020-12-30 10:02:44.089619');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.089779', '2020-12-30 10:02:44.089779'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.089779', '2020-12-30 10:02:44.089779'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.089779', '2020-12-30 10:02:44.089779');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.089958', '2020-12-30 10:02:44.089958', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.089958', '2020-12-30 10:02:44.089958', DEFAULT, 980190962)[0m
+  [1m[35m (189.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.146018', '2020-12-30 10:02:44.146018'), (298486374, '2020-12-30 10:02:44.146018', '2020-12-30 10:02:44.146018');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.146170', '2020-12-30 10:02:44.146170'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.146170', '2020-12-30 10:02:44.146170');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.146275', '2020-12-30 10:02:44.146275'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.146275', '2020-12-30 10:02:44.146275'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.146275', '2020-12-30 10:02:44.146275');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.146439', '2020-12-30 10:02:44.146439', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.146439', '2020-12-30 10:02:44.146439', DEFAULT, 980190962)[0m
+  [1m[35m (90.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.201406', '2020-12-30 10:02:44.201406'), (298486374, '2020-12-30 10:02:44.201406', '2020-12-30 10:02:44.201406');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.201556', '2020-12-30 10:02:44.201556'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.201556', '2020-12-30 10:02:44.201556');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.201885', '2020-12-30 10:02:44.201885'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.201885', '2020-12-30 10:02:44.201885'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.201885', '2020-12-30 10:02:44.201885');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.202069', '2020-12-30 10:02:44.202069', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.202069', '2020-12-30 10:02:44.202069', DEFAULT, 980190962)[0m
+  [1m[35m (202.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.368229', '2020-12-30 10:02:44.368229'), (298486374, '2020-12-30 10:02:44.368229', '2020-12-30 10:02:44.368229');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.368381', '2020-12-30 10:02:44.368381'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.368381', '2020-12-30 10:02:44.368381');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.368721', '2020-12-30 10:02:44.368721'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.368721', '2020-12-30 10:02:44.368721'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.368721', '2020-12-30 10:02:44.368721');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.368896', '2020-12-30 10:02:44.368896', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.368896', '2020-12-30 10:02:44.368896', DEFAULT, 980190962)[0m
+  [1m[35m (201.8ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.425366', '2020-12-30 10:02:44.425366'), (298486374, '2020-12-30 10:02:44.425366', '2020-12-30 10:02:44.425366');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.425574', '2020-12-30 10:02:44.425574'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.425574', '2020-12-30 10:02:44.425574');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.425716', '2020-12-30 10:02:44.425716'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.425716', '2020-12-30 10:02:44.425716'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.425716', '2020-12-30 10:02:44.425716');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.426047', '2020-12-30 10:02:44.426047', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.426047', '2020-12-30 10:02:44.426047', DEFAULT, 980190962)[0m
+  [1m[35m (90.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.480170', '2020-12-30 10:02:44.480170'), (298486374, '2020-12-30 10:02:44.480170', '2020-12-30 10:02:44.480170');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.480334', '2020-12-30 10:02:44.480334'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.480334', '2020-12-30 10:02:44.480334');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.480459', '2020-12-30 10:02:44.480459'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.480459', '2020-12-30 10:02:44.480459'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.480459', '2020-12-30 10:02:44.480459');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.480652', '2020-12-30 10:02:44.480652', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.480652', '2020-12-30 10:02:44.480652', DEFAULT, 980190962)[0m
+  [1m[35m (211.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.657063', '2020-12-30 10:02:44.657063'), (298486374, '2020-12-30 10:02:44.657063', '2020-12-30 10:02:44.657063');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.657252', '2020-12-30 10:02:44.657252'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.657252', '2020-12-30 10:02:44.657252');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.657411', '2020-12-30 10:02:44.657411'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.657411', '2020-12-30 10:02:44.657411'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.657411', '2020-12-30 10:02:44.657411');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.657808', '2020-12-30 10:02:44.657808', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.657808', '2020-12-30 10:02:44.657808', DEFAULT, 980190962)[0m
+  [1m[35m (211.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.714171', '2020-12-30 10:02:44.714171'), (298486374, '2020-12-30 10:02:44.714171', '2020-12-30 10:02:44.714171');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.714348', '2020-12-30 10:02:44.714348'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.714348', '2020-12-30 10:02:44.714348');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.714585', '2020-12-30 10:02:44.714585'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.714585', '2020-12-30 10:02:44.714585'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.714585', '2020-12-30 10:02:44.714585');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.714778', '2020-12-30 10:02:44.714778', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.714778', '2020-12-30 10:02:44.714778', DEFAULT, 980190962)[0m
+  [1m[35m (91.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.767677', '2020-12-30 10:02:44.767677'), (298486374, '2020-12-30 10:02:44.767677', '2020-12-30 10:02:44.767677');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.767862', '2020-12-30 10:02:44.767862'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.767862', '2020-12-30 10:02:44.767862');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.768082', '2020-12-30 10:02:44.768082'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.768082', '2020-12-30 10:02:44.768082'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.768082', '2020-12-30 10:02:44.768082');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.768252', '2020-12-30 10:02:44.768252', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.768252', '2020-12-30 10:02:44.768252', DEFAULT, 980190962)[0m
+  [1m[35m (200.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (1.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.935161', '2020-12-30 10:02:44.935161'), (298486374, '2020-12-30 10:02:44.935161', '2020-12-30 10:02:44.935161');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.935406', '2020-12-30 10:02:44.935406'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.935406', '2020-12-30 10:02:44.935406');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.935671', '2020-12-30 10:02:44.935671'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.935671', '2020-12-30 10:02:44.935671'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.935671', '2020-12-30 10:02:44.935671');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.935843', '2020-12-30 10:02:44.935843', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.935843', '2020-12-30 10:02:44.935843', DEFAULT, 980190962)[0m
+  [1m[35m (200.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:44.990618', '2020-12-30 10:02:44.990618'), (298486374, '2020-12-30 10:02:44.990618', '2020-12-30 10:02:44.990618');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:44.990756', '2020-12-30 10:02:44.990756'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:44.990756', '2020-12-30 10:02:44.990756');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.990869', '2020-12-30 10:02:44.990869'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:44.990869', '2020-12-30 10:02:44.990869'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:44.990869', '2020-12-30 10:02:44.990869');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:44.991134', '2020-12-30 10:02:44.991134', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:44.991134', '2020-12-30 10:02:44.991134', DEFAULT, 980190962)[0m
+  [1m[35m (88.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.8ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.046403', '2020-12-30 10:02:45.046403'), (298486374, '2020-12-30 10:02:45.046403', '2020-12-30 10:02:45.046403');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.046502', '2020-12-30 10:02:45.046502'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.046502', '2020-12-30 10:02:45.046502');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.046578', '2020-12-30 10:02:45.046578'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.046578', '2020-12-30 10:02:45.046578'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.046578', '2020-12-30 10:02:45.046578');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.046775', '2020-12-30 10:02:45.046775', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.046775', '2020-12-30 10:02:45.046775', DEFAULT, 980190962)[0m
+  [1m[35m (178.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.192009', '2020-12-30 10:02:45.192009'), (298486374, '2020-12-30 10:02:45.192009', '2020-12-30 10:02:45.192009');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.192159', '2020-12-30 10:02:45.192159'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.192159', '2020-12-30 10:02:45.192159');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.192374', '2020-12-30 10:02:45.192374'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.192374', '2020-12-30 10:02:45.192374'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.192374', '2020-12-30 10:02:45.192374');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.192634', '2020-12-30 10:02:45.192634', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.192634', '2020-12-30 10:02:45.192634', DEFAULT, 980190962)[0m
+  [1m[35m (180.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.248007', '2020-12-30 10:02:45.248007'), (298486374, '2020-12-30 10:02:45.248007', '2020-12-30 10:02:45.248007');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.248171', '2020-12-30 10:02:45.248171'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.248171', '2020-12-30 10:02:45.248171');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.248328', '2020-12-30 10:02:45.248328'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.248328', '2020-12-30 10:02:45.248328'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.248328', '2020-12-30 10:02:45.248328');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.248480', '2020-12-30 10:02:45.248480', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.248480', '2020-12-30 10:02:45.248480', DEFAULT, 980190962)[0m
+  [1m[35m (187.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.402793', '2020-12-30 10:02:45.402793'), (298486374, '2020-12-30 10:02:45.402793', '2020-12-30 10:02:45.402793');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.402967', '2020-12-30 10:02:45.402967'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.402967', '2020-12-30 10:02:45.402967');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.403090', '2020-12-30 10:02:45.403090'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.403090', '2020-12-30 10:02:45.403090'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.403090', '2020-12-30 10:02:45.403090');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.403236', '2020-12-30 10:02:45.403236', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.403236', '2020-12-30 10:02:45.403236', DEFAULT, 980190962)[0m
+  [1m[35m (179.0ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.444610', '2020-12-30 10:02:45.444610'), (298486374, '2020-12-30 10:02:45.444610', '2020-12-30 10:02:45.444610');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.444890', '2020-12-30 10:02:45.444890'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.444890', '2020-12-30 10:02:45.444890');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.445054', '2020-12-30 10:02:45.445054'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.445054', '2020-12-30 10:02:45.445054'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.445054', '2020-12-30 10:02:45.445054');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.445308', '2020-12-30 10:02:45.445308', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.445308', '2020-12-30 10:02:45.445308', DEFAULT, 980190962)[0m
+  [1m[35m (66.7ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (1.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.503594', '2020-12-30 10:02:45.503594'), (298486374, '2020-12-30 10:02:45.503594', '2020-12-30 10:02:45.503594');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.503737', '2020-12-30 10:02:45.503737'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.503737', '2020-12-30 10:02:45.503737');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.503856', '2020-12-30 10:02:45.503856'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.503856', '2020-12-30 10:02:45.503856'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.503856', '2020-12-30 10:02:45.503856');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.504172', '2020-12-30 10:02:45.504172', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.504172', '2020-12-30 10:02:45.504172', DEFAULT, 980190962)[0m
+  [1m[35m (191.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.671667', '2020-12-30 10:02:45.671667'), (298486374, '2020-12-30 10:02:45.671667', '2020-12-30 10:02:45.671667');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.671811', '2020-12-30 10:02:45.671811'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.671811', '2020-12-30 10:02:45.671811');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.672185', '2020-12-30 10:02:45.672185'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.672185', '2020-12-30 10:02:45.672185'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.672185', '2020-12-30 10:02:45.672185');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.672370', '2020-12-30 10:02:45.672370', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.672370', '2020-12-30 10:02:45.672370', DEFAULT, 980190962)[0m
+  [1m[35m (200.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.730763', '2020-12-30 10:02:45.730763'), (298486374, '2020-12-30 10:02:45.730763', '2020-12-30 10:02:45.730763');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.730929', '2020-12-30 10:02:45.730929'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.730929', '2020-12-30 10:02:45.730929');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.731100', '2020-12-30 10:02:45.731100'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.731100', '2020-12-30 10:02:45.731100'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.731100', '2020-12-30 10:02:45.731100');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.731279', '2020-12-30 10:02:45.731279', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.731279', '2020-12-30 10:02:45.731279', DEFAULT, 980190962)[0m
+  [1m[35m (185.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.7ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.1ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.878561', '2020-12-30 10:02:45.878561'), (298486374, '2020-12-30 10:02:45.878561', '2020-12-30 10:02:45.878561');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.878745', '2020-12-30 10:02:45.878745'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.878745', '2020-12-30 10:02:45.878745');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.878909', '2020-12-30 10:02:45.878909'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.878909', '2020-12-30 10:02:45.878909'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.878909', '2020-12-30 10:02:45.878909');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.879123', '2020-12-30 10:02:45.879123', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.879123', '2020-12-30 10:02:45.879123', DEFAULT, 980190962)[0m
+  [1m[35m (176.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.4ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.927574', '2020-12-30 10:02:45.927574'), (298486374, '2020-12-30 10:02:45.927574', '2020-12-30 10:02:45.927574');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.927730', '2020-12-30 10:02:45.927730'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.927730', '2020-12-30 10:02:45.927730');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.927877', '2020-12-30 10:02:45.927877'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.927877', '2020-12-30 10:02:45.927877'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.927877', '2020-12-30 10:02:45.927877');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.928293', '2020-12-30 10:02:45.928293', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.928293', '2020-12-30 10:02:45.928293', DEFAULT, 980190962)[0m
+  [1m[35m (85.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.3ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:45.983294', '2020-12-30 10:02:45.983294'), (298486374, '2020-12-30 10:02:45.983294', '2020-12-30 10:02:45.983294');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:45.983402', '2020-12-30 10:02:45.983402'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:45.983402', '2020-12-30 10:02:45.983402');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.983488', '2020-12-30 10:02:45.983488'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:45.983488', '2020-12-30 10:02:45.983488'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:45.983488', '2020-12-30 10:02:45.983488');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:45.983762', '2020-12-30 10:02:45.983762', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:45.983762', '2020-12-30 10:02:45.983762', DEFAULT, 980190962)[0m
+  [1m[35m (185.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT @@FOREIGN_KEY_CHECKS[0m
+  [1m[35m (0.2ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 0[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mFixtures Load (0.2ms)[0m  [1m[31mDELETE FROM `carts`;
+DELETE FROM `orders`;
+DELETE FROM `products`;
+DELETE FROM `line_items`;
+INSERT INTO `carts` (`id`, `created_at`, `updated_at`) VALUES (980190962, '2020-12-30 10:02:46.133567', '2020-12-30 10:02:46.133567'), (298486374, '2020-12-30 10:02:46.133567', '2020-12-30 10:02:46.133567');
+INSERT INTO `orders` (`id`, `name`, `address`, `email`, `pay_type`, `created_at`, `updated_at`) VALUES (980190962, 'Dave Thomas', 'MyText', 'dave@example.org', 0, '2020-12-30 10:02:46.133739', '2020-12-30 10:02:46.133739'), (298486374, 'MyString', 'MyText', 'MyString', 1, '2020-12-30 10:02:46.133739', '2020-12-30 10:02:46.133739');
+INSERT INTO `products` (`id`, `title`, `description`, `image_url`, `price`, `created_at`, `updated_at`) VALUES (980190962, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:46.133897', '2020-12-30 10:02:46.133897'), (298486374, 'MyString', 'MyText', 'MyString', 9.99, '2020-12-30 10:02:46.133897', '2020-12-30 10:02:46.133897'), (207281424, 'Programming Ruby 1.9', 'Ruby is the fastest growing and most exciting dynamic language out there.  If you need to get working programs delivered fast, you should add Ruby to your toolbox.', 'ruby.png', 49.5, '2020-12-30 10:02:46.133897', '2020-12-30 10:02:46.133897');
+INSERT INTO `line_items` (`id`, `product_id`, `cart_id`, `created_at`, `updated_at`, `quantity`, `order_id`) VALUES (980190962, 298486374, 980190962, '2020-12-30 10:02:46.134063', '2020-12-30 10:02:46.134063', DEFAULT, DEFAULT), (298486374, 207281424, DEFAULT, '2020-12-30 10:02:46.134063', '2020-12-30 10:02:46.134063', DEFAULT, 980190962)[0m
+  [1m[35m (180.6ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
+  [1m[35m (75.9ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[35mSET FOREIGN_KEY_CHECKS = 1[0m
