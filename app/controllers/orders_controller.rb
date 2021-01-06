@@ -7,7 +7,6 @@
 # Visit http://www.pragmaticprogrammer.com/titles/rails5 for more book information.
 #---
 class OrdersController < ApplicationController
-  skip_before_action :authorize, only: [:new, :create]
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: :new
@@ -43,9 +42,8 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-        OrderMailer.received(@order).deliver_later
-        format.html { redirect_to store_index_url(locale: I18n.locale),
-          notice: I18n.t('.thanks') }
+        format.html { redirect_to store_index_url, notice: 
+          'Thank you for your order.' }
         format.json { render :show, status: :created,
           location: @order }
       else
